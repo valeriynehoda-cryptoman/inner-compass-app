@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 
 export default function App() {
-  const [step, setStep] = useState('intro'); // 'intro', 'quiz', 'result'
+  const [step, setStep] = useState('intro');
   const [currentQ, setCurrentQ] = useState(0);
   const [answers, setAnswers] = useState([]);
-  const [unlocked, setUnlocked] = useState(false);
   const [loadingPayment, setLoadingPayment] = useState(false);
 
   const questions = [
@@ -48,43 +47,34 @@ export default function App() {
   };
 
   const handleBuyClick = async () => {
-    alert('Клик сработал!');
     setLoadingPayment(true);
     try {
+      const userId = window.Telegram?.WebApp?.initDataUnsafe?.user?.id;
+      
+      if (!userId) {
+        alert('Не удалось определить ID пользователя. Откройте приложение из чата с ботом!');
+        setLoadingPayment(false);
+        return;
+      }
+
       const res = await fetch('/api/create-invoice', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' }
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userId })
       });
 
-      const text = await res.text();
-      let data;
-      try {
-        data = JSON.parse(text);
-      } catch (e) {
-        throw new Error('Сервер вернул не JSON: ' + text.slice(0, 100));
-      }
+      const data = await res.json();
 
-      if (!res.ok) {
-        throw new Error(data.error || 'Ошибка HTTP: ' + res.status);
-      }
-
-      if (data.invoiceLink) {
-        if (window.Telegram && window.Telegram.WebApp && typeof window.Telegram.WebApp.openInvoice === 'function') {
-          window.Telegram.WebApp.openInvoice(data.invoiceLink, (status) => {
-            if (status === 'paid') {
-              setUnlocked(true);
-              window.Telegram.WebApp.showAlert('Оплата прошла успешно! Полный анализ разблокирован 🎉');
-            }
-          });
-        } else {
-          window.open(data.invoiceLink, '_blank');
+      if (data.success) {
+        if (window.Telegram && window.Telegram.WebApp) {
+          window.Telegram.WebApp.close();
         }
       } else {
-        alert('Сервер не передал ссылку на оплату');
+        alert('Ошибка: ' + (data.error || 'не удалось отправить счет'));
       }
     } catch (err) {
       console.error('Payment error:', err);
-      alert('Сбой оплаты: ' + err.message);
+      alert('Ошибка соединения: ' + err.message);
     } finally {
       setLoadingPayment(false);
     }
@@ -94,7 +84,6 @@ export default function App() {
     <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col items-center justify-between p-4 font-sans selection:bg-indigo-500 selection:text-white">
       <div className="w-full max-w-md mx-auto flex flex-col flex-grow justify-center">
         
-        {/* INTRO STEP */}
         {step === 'intro' && (
           <div className="text-center space-y-6">
             <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-indigo-600/20 text-indigo-400 mb-2 border border-indigo-500/30 shadow-inner">
@@ -113,7 +102,6 @@ export default function App() {
           </div>
         )}
 
-        {/* QUIZ STEP */}
         {step === 'quiz' && (
           <div className="space-y-6">
             <div className="flex justify-between items-center text-xs text-slate-400 uppercase tracking-wider">
@@ -146,7 +134,6 @@ export default function App() {
           </div>
         )}
 
-        {/* RESULT STEP */}
         {step === 'result' && (
           <div className="space-y-6 py-4">
             <div className="text-center space-y-2">
@@ -156,7 +143,6 @@ export default function App() {
               <h2 className="text-xl font-bold text-white">Ваш психологический срез</h2>
             </div>
 
-            {/* Free / Preview Summary */}
             <div className="p-4 rounded-xl bg-slate-900/80 border border-slate-800 space-y-2">
               <h3 className="text-sm font-semibold text-indigo-300">Базовый архетип: Странник</h3>
               <p className="text-xs text-slate-300 leading-relaxed">
@@ -164,30 +150,27 @@ export default function App() {
               </p>
             </div>
 
-            {/* Locked Pro Content */}
             <div className="relative rounded-xl overflow-hidden border border-slate-800 bg-slate-900 p-4 space-y-3">
-              {!unlocked && (
-                <div className="absolute inset-0 bg-slate-950/85 backdrop-blur-md flex flex-col items-center justify-center p-6 text-center z-10 space-y-3">
-                  <div className="w-10 h-10 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center border border-amber-500/30">
-                    🔒
-                  </div>
-                  <div>
-                    <h4 className="text-sm font-semibold text-white">Полный глубокий разбор PRO</h4>
-                    <p className="text-xs text-slate-400 mt-1">
-                      Индивидуальный план выхода из кризиса, триггеры и персональные практики (250 Stars / $4.99)
-                    </p>
-                  </div>
-                  <button
-                    onClick={handleBuyClick}
-                    disabled={loadingPayment}
-                    className="w-full py-3 px-4 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-semibold text-sm shadow-lg shadow-amber-500/20 transition-all duration-200 active:scale-[0.98] disabled:opacity-50"
-                  >
-                    {loadingPayment ? 'Создание счета...' : 'Разблокировать за 250 ⭐ ($4.99)'}
-                  </button>
+              <div className="absolute inset-0 bg-slate-950/85 backdrop-blur-md flex flex-col items-center justify-center p-6 text-center z-10 space-y-3">
+                <div className="w-10 h-10 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center border border-amber-500/30">
+                  🔒
                 </div>
-              )}
+                <div>
+                  <h4 className="text-sm font-semibold text-white">Полный глубокий разбор PRO</h4>
+                  <p className="text-xs text-slate-400 mt-1">
+                    Индивидуальный план выхода из кризиса, триггеры и персональные практики (250 Stars)
+                  </p>
+                </div>
+                <button
+                  onClick={handleBuyClick}
+                  disabled={loadingPayment}
+                  className="w-full py-3 px-4 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-semibold text-sm shadow-lg shadow-amber-500/20 transition-all duration-200 active:scale-[0.98] disabled:opacity-50"
+                >
+                  {loadingPayment ? 'Отправка счета...' : 'Разблокировать за 250 ⭐'}
+                </button>
+              </div>
 
-              <div className={!unlocked ? 'filter blur-sm select-none pointer-events-none space-y-3' : 'space-y-3'}>
+              <div className="filter blur-sm select-none pointer-events-none space-y-3">
                 <h3 className="text-sm font-semibold text-emerald-400">✨ Глубинные рекомендации PRO</h3>
                 <ul className="text-xs text-slate-300 space-y-2 list-disc pl-4">
                   <li>Точка уязвимости: склонность брать на себя чужую ответственность в периоды турбулентности.</li>
@@ -197,11 +180,6 @@ export default function App() {
               </div>
             </div>
 
-            {unlocked && (
-              <div className="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-center text-xs text-emerald-300">
-                🎉 Полный доступ успешно активирован! Все материалы разблокированы.
-              </div>
-            )}
           </div>
         )}
 

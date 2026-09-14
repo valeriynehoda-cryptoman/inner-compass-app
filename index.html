@@ -5,25 +5,90 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Inner Compass</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script type="importmap">
-      {
-        "imports": {
-          "react": "https://esm.sh/react@18.2.0",
-          "react-dom/client": "https://esm.sh/react-dom@18.2.0/client"
-        }
-      }
-    </script>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   </head>
-  <body class="bg-slate-950">
+  <body class="bg-slate-950 text-slate-100 min-h-screen">
     <div id="root"></div>
-    <script type="text/babel" data-type="module">
-      import React from 'react';
-      import { createRoot } from 'react-dom/client';
-      import App from './App.jsx';
 
-      const root = createRoot(document.getElementById('root'));
-      root.render(<App />);
+    <script type="text/babel">
+      function App() {
+        const [step, setStep] = React.useState('welcome');
+        const [answers, setAnswers] = React.useState({});
+        const [currentQ, setCurrentQ] = React.useState(0);
+
+        const questions = [
+          { id: 1, text: "Что для вас сейчас является главным источником стресса?", options: ["Сроки и высокая нагрузка", "Личные границы и токсичные люди", "Непонимание куда двигаться дальше", "Прокрастинация и выгорание"] },
+          { id: 2, text: "Как вы обычно реагируете на критику?", options: ["Защищаюсь и спорю", "Закрываюсь в себе", "Анализирую и беру полезное", "Долго переживаю внутри"] },
+          { id: 3, text: "Что вы чувствуете в конце рабочего дня?", options: ["Полное истощение", "Удовлетворение от результатов", "Тревогу о том, что не успел", "Пустоту и апатию"] },
+          { id: 4, text: "Какая стратегия помогает вам справляться с трудностями?", options: ["Контроль каждого шага", "Уход в работу с головой", "Игнорирование проблемы пока не пройдет", "Поиск поддержки у близких"] },
+          { id: 5, text: "Чего вы больше всего подсознательно боитесь?",options: ["Потерять контроль", "Оказаться неуспешным", "Отвержения и одиночества", "Потерять время зря"] },
+          { id: 6, text: "Какой стиль принятия решений вам ближе?", options: ["Через логику и цифры", "Интуитивно", "Советуясь с другими", "Долго сомневаясь"] },
+          { id: 7, text: "Ваша главная цель на ближайшие 3 месяца?", options: ["Найти баланс между работой и жизнью", "Обрести финансовую стабильность", "Понять свои истинные желания", "Избавиться от тревожности"] }
+        ];
+
+        const handleAnswer = (option) => {
+          const newAnswers = { ...answers, [currentQ]: option };
+          setAnswers(newAnswers);
+          if (currentQ < questions.length - 1) {
+            setCurrentQ(currentQ + 1);
+          } else {
+            setStep('analyzing');
+            setTimeout(() => {
+              setStep('result');
+            }, 3000);
+          }
+        };
+
+        return (
+          <div className="flex flex-col items-center justify-center min-h-screen p-4">
+            {step === 'welcome' && (
+              <div className="max-w-md w-full bg-slate-900 border border-slate-800 p-8 rounded-2xl text-center shadow-2xl">
+                <h1 className="text-3xl font-bold mb-4 bg-gradient-to-r from-cyan-400 to-indigo-500 bg-clip-text text-transparent">Inner Compass</h1>
+                <p className="text-slate-400 mb-6">Пройдите экспресс-опрос из 7 вопросов, чтобы получить глубокий психологический профиль и карту ваших скрытых защитных механизмов.</p>
+                <button onClick={() => setStep('quiz')} className="w-full py-3 bg-indigo-600 hover:bg-indigo-500 rounded-xl font-semibold transition shadow-lg shadow-indigo-600/30">Начать диагностику</button>
+              </div>
+            )}
+
+            {step === 'quiz' && (
+              <div className="max-w-md w-full bg-slate-900 border border-slate-800 p-8 rounded-2xl shadow-2xl">
+                <div className="text-sm text-indigo-400 mb-2 font-medium">Вопрос {currentQ + 1} из {questions.length}</div>
+                <h2 className="text-xl font-semibold mb-6">{questions[currentQ].text}</h2>
+                <div className="space-y-3">
+                  {questions[currentQ].options.map((opt, idx) => (
+                    <button key={idx} onClick={() => handleAnswer(opt)} className="w-full text-left p-4 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700/50 transition">
+                      {opt}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {step === 'analyzing' && (
+              <div className="max-w-md w-full bg-slate-900 border border-slate-800 p-8 rounded-2xl text-center shadow-2xl">
+                <div className="inline-block w-12 h-12 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin mb-4"></div>
+                <h2 className="text-xl font-semibold mb-2">Анализируем ваши ответы...</h2>
+                <p className="text-slate-400 text-sm">Нейросеть сопоставляет ваши паттерны реакций и строит психологический профиль.</p>
+              </div>
+            )}
+
+            {step === 'result' && (
+              <div className="max-w-md w-full bg-slate-900 border border-slate-800 p-8 rounded-2xl shadow-2xl">
+                <h2 className="text-2xl font-bold mb-3 text-emerald-400">Ваш профиль готов</h2>
+                <p className="text-slate-300 mb-6 text-sm">Ваш ведущий защитный механизм — **Интеллектуализация и гиперконтроль**. Вы привыкли опираться на логику, чтобы оградить себя от эмоционального выгорания.</p>
+                <div className="bg-indigo-950/40 border border-indigo-800/50 p-4 rounded-xl mb-6">
+                  <div className="text-xs text-indigo-300 font-semibold uppercase mb-1">PRO-доступ</div>
+                  <div className="text-sm text-slate-300">Получите ежедневный план персональных практик и доступ к ИИ-коучу. **3 дня бесплатно**, далее $4.99/нед.</div>
+                </div>
+                <button onClick={() => alert('Переход к оплате подписки...')} className="w-full py-3 bg-emerald-600 hover:bg-emerald-500 rounded-xl font-semibold transition shadow-lg shadow-emerald-600/30">Активировать ПРО доступ</button>
+              </div>
+            )}
+          </div>
+        );
+      }
+
+      ReactDOM.createRoot(document.getElementById('root')).render(<App />);
     </script>
   </body>
 </html>

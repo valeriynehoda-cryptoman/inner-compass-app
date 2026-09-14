@@ -53,16 +53,18 @@ export default function App() {
       const res = await fetch('/api/create-invoice', { method: 'POST' });
       const data = await res.json();
       
-      if (data.invoiceLink && window.Telegram && window.Telegram.WebApp) {
-        window.Telegram.WebApp.openInvoice(data.invoiceLink, (status) => {
-          if (status === 'paid') {
-            setUnlocked(true);
-            window.Telegram.WebApp.showAlert('Оплата прошла успешно! Полный анализ разблокирован 🎉');
-          }
-        });
-      } else if (data.invoiceLink) {
-        // Запасной вариант для тестирования в обычном браузере
-        window.location.href = data.invoiceLink;
+      if (data.invoiceLink) {
+        if (window.Telegram && window.Telegram.WebApp && typeof window.Telegram.WebApp.openInvoice === 'function') {
+          window.Telegram.WebApp.openInvoice(data.invoiceLink, (status) => {
+            if (status === 'paid') {
+              setUnlocked(true);
+              window.Telegram.WebApp.showAlert('Оплата прошла успешно! Полный анализ разблокирован 🎉');
+            }
+          });
+        } else {
+          // Запасной вариант для десктопа или внешнего браузера
+          window.open(data.invoiceLink, '_blank');
+        }
       } else {
         alert(data.error || 'Не удалось сформировать счет на оплату');
       }

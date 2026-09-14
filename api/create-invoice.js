@@ -21,11 +21,17 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: 'Bot token not configured' });
   }
 
+  const { userId } = req.body;
+  if (!userId) {
+    return res.status(400).json({ error: 'Missing userId' });
+  }
+
   try {
-    const response = await fetch(`https://api.telegram.org/bot${token}/createInvoiceLink`, {
+    const response = await fetch(`https://api.telegram.org/bot${token}/sendInvoice`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
+        chat_id: userId,
         title: 'Полный доступ к Inner Compass',
         description: 'Глубинный психологический портрет, архетип и персональный план восстановления (250 Stars)',
         payload: 'inner_compass_pro_access',
@@ -42,7 +48,7 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: data.description || 'Telegram API error' });
     }
 
-    return res.status(200).json({ invoiceLink: data.result });
+    return res.status(200).json({ success: true });
   } catch (error) {
     console.error('Function error:', error);
     return res.status(500).json({ error: error.message });

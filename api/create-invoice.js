@@ -27,11 +27,10 @@ export default async function handler(req, res) {
   }
 
   try {
-    const response = await fetch(`https://api.telegram.org/bot${token}/sendInvoice`, {
+    const response = await fetch(`https://api.telegram.org/bot${token}/createInvoiceLink`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        chat_id: userId,
         title: 'Полный доступ к Inner Compass',
         description: 'Глубинный психологический портрет, архетип и персональный план восстановления (250 Stars)',
         payload: 'inner_compass_pro_access',
@@ -48,7 +47,7 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: data.description || 'Telegram API error' });
     }
 
-    return res.status(200).json({ success: true });
+    return res.status(200).json({ success: true, invoiceLink: data.result });
   } catch (error) {
     console.error('Function error:', error);
     return res.status(500).json({ error: error.message });

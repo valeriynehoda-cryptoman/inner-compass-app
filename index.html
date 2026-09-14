@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Inner Compass — Психологический ИИ-Профиль</title>
+    <title>Inner Compass — Твой внутренний навигатор</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
@@ -12,10 +12,10 @@
     <style>
       body { font-family: 'Plus Jakarta Sans', sans-serif; }
       @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(10px); }
+        from { opacity: 0; transform: translateY(12px); }
         to { opacity: 1; transform: translateY(0); }
       }
-      .animate-fade-in { animation: fadeIn 0.4s ease-out forwards; }
+      .animate-fade-in { animation: fadeIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
     </style>
   </head>
   <body class="bg-slate-950 text-slate-100 min-h-screen selection:bg-indigo-500 selection:text-white">
@@ -29,13 +29,13 @@
         const [activeTab, setActiveTab] = React.useState('profile');
 
         const questions = [
-          { id: 1, text: "Что для вас сейчас является главным источником внутреннего напряжения?", options: ["Сроки, дедлайны и груз ответственности", "Нарушение личных границ со стороны окружения", "Ощущение тупика и потери ориентиров", "Хроническая прокрастинация и утечка энергии"] },
-          { id: 2, text: "Как ваша психика защищается в моменты резкой критики или давления?", options: ["Ухожу в холодную логику и жесткий контроль", "Закрываюсь в коконе и избегаю контактов", "Включаю внутренний саботаж или агрессию", "Долго прокручиваю диалог в голове"] },
-          { id: 3, text: "Какое эмоциональное состояние чаще всего сопровождает конец вашего дня?", options: ["Опустошение и глубинная усталость", "Тревога о том, что сделано недостаточно", "Скрытое раздражение на внешние факторы", "Пространственная апатия и безразличие"] },
-          { id: 4, text: "Какая бессознательная стратегия помогает вам справляться с хаосом?", options: ["Контролировать каждый микропроцесс", "Залипать в работу, избегая чувств", "Откладывать решения до критической точки", "Искать одобрения или совета извне"] },
-          { id: 5, text: "Чего вы подсознательно опасаетесь больше всего?",options: ["Потерять контроль над своей жизнью", "Оказаться некомпетентным или слабым", "Отвержения, одиночества и непонимания", "Потратить время на ненужные цели"] },
-          { id: 6, text: "Какой стиль принятия решений для вас наиболее характерен?", options: ["Холодный расчет фактов и рисков", "Интуитивное улавливание импульсов", "Долгие сомнения и поиск идеального варианта", "Опора на чужой успешный опыт"] },
-          { id: 7, text: "Какой главный результат вы хотите получить от работы с собой?", options: ["Вернуть баланс и ресурсное состояние", "Обрести жесткие границы и уверенность", "Найти истинные цели без чужого шума", "Избавиться от фоновой тревожности"] }
+          { id: 1, text: "Когда внешний мир требует слишком многого, где в теле ты острее всего чувствуешь это напряжение?", options: ["Сжимается грудная клетка, не хватает воздуха", "Накапливается тяжесть в плечах и шее", "Появляется ментальный туман и рассеянность", "Ощущается глухая усталость во всем теле"] },
+          { id: 2, text: "Какую привычную маску надевает твое подсознание, когда чувствует угрозу или давление?", options: ["Холодная рациональность и тотальный контроль", "Тихий уход вглубь себя, дистанцирование", "Внутренний бунт, саботаж или резкость", "Бесконечный внутренний диалог «как надо было сделать»"] },
+          { id: 3, text: "О чем шепчет тебе тишина в конце долгого дня?", options: ["«Я снова выживал(а), а не жил(а)»", "«Сколько еще можно терпеть этот бег на месте?»", "«Никто по-настоящему не видит, как мне сложно»", "«Я боюсь остановиться, потому что тогда рухнет всё»"] },
+          { id: 4, text: "Какая скрытая стратегия помогает тебе держаться на плаву в периоды неопределенности?", options: ["Заранее просчитывать каждый шаг наперед", "Уходить с головой в работу, отключая чувства", "Ждать, пока буря утихнет сама собой", "Искать опору в ком-то другом, забывая о себе"] },
+          { id: 5, text: "Чего на самом деле боится та часть тебя, которая никогда не расслабляет плечи?",options: ["Потерять контроль и рухнуть в хаос", "Оказаться «несоответствующим(ой)» ожиданиям", "Остаться одному/одной в моменты уязвимости", "Потратить жизнь на то, что не имеет ценности"] },
+          { id: 6, text: "Как ты принимаешь самые важные решения, когда внутри нет ясности?", options: ["Через строгую логику, отсекая эмоции", "Доверяя глубинному внутреннему импульсу", "Долго взвешивая всё, сомневаясь в каждом выборе", "Опираясь на чужой проверенный опыт"] },
+          { id: 7, text: "Если бы твое тело могло говорить прямо сейчас, о чем бы оно тебя попросило?", options: ["«Дай мне выдохнуть и просто побыть в тишине»", "«Научись защищать свои границы без чувства вины»", "«Перестань доказывать всем свою ценность»", "«Позволь себе ошибаться и быть живым(ой)»"] }
         ];
 
         const handleAnswer = (option) => {
@@ -47,7 +47,7 @@
             setStep('analyzing');
             setTimeout(() => {
               setStep('result');
-            }, 3500);
+            }, 3800);
           }
         };
 
@@ -56,15 +56,15 @@
             
             {/* WELCOME SCREEN */}
             {step === 'welcome' && (
-              <div className="max-w-lg w-full bg-slate-900/80 backdrop-blur-xl border border-slate-800/80 p-8 rounded-3xl text-center shadow-2xl animate-fade-in relative overflow-hidden">
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-48 h-48 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
+              <div className="max-w-lg w-full bg-slate-900/80 backdrop-blur-xl border border-slate-800/80 p-8 sm:p-10 rounded-3xl text-center shadow-2xl animate-fade-in relative overflow-hidden">
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
                 <div className="inline-flex items-center justify-center px-4 py-1.5 rounded-full bg-indigo-500/10 text-indigo-400 text-xs font-semibold uppercase tracking-wider mb-6 border border-indigo-500/20">
-                  AI Психологическая диагностика
+                  Глубинная навигация сознания
                 </div>
                 <h1 className="text-3xl sm:text-4xl font-bold mb-4 tracking-tight bg-gradient-to-r from-white via-slate-200 to-indigo-300 bg-clip-text text-transparent">Inner Compass</h1>
-                <p className="text-slate-400 mb-8 text-sm sm:text-base leading-relaxed">Пройдите глубокий экспресс-опрос из 7 вопросов. Алгоритмы сопоставят ваши паттерны и построят карту скрытых защитных механизмов и зон роста.</p>
+                <p className="text-slate-300 mb-8 text-sm sm:text-base leading-relaxed">Это пространство создано для того, чтобы ты наконец услышал(а) себя. Всего 7 вопросов помогут бережно распутать внутренний узел, заметить скрытые защитные механизмы и вернуть ресурсное состояние.</p>
                 <button onClick={() => setStep('quiz')} className="w-full py-4 bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 rounded-2xl font-semibold transition shadow-lg shadow-indigo-600/25 text-white tracking-wide">
-                  Начать диагностику
+                  Сделать первый шаг к себе
                 </button>
               </div>
             )}
@@ -73,16 +73,16 @@
             {step === 'quiz' && (
               <div className="max-w-lg w-full bg-slate-900/80 backdrop-blur-xl border border-slate-800/80 p-8 rounded-3xl shadow-2xl animate-fade-in">
                 <div className="flex justify-between items-center mb-6">
-                  <span className="text-xs font-semibold uppercase tracking-wider text-indigo-400 bg-indigo-500/10 px-3 py-1 rounded-full border border-indigo-500/20">Вопрос {currentQ + 1} из {questions.length}</span>
-                  <span className="text-xs text-slate-500">{Math.round(((currentQ + 1) / questions.length) * 100)}%</span>
+                  <span className="text-xs font-semibold uppercase tracking-wider text-indigo-400 bg-indigo-500/10 px-3 py-1 rounded-full border border-indigo-500/20">Шаг {currentQ + 1} из {questions.length}</span>
+                  <span className="text-xs text-slate-400">{Math.round(((currentQ + 1) / questions.length) * 100)}%</span>
                 </div>
                 <div className="w-full bg-slate-800 h-1.5 rounded-full mb-6 overflow-hidden">
-                  <div className="bg-indigo-500 h-full transition-all duration-300" style={{ width: `${((currentQ + 1) / questions.length) * 100}%` }}></div>
+                  <div className="bg-gradient-to-r from-indigo-500 to-violet-500 h-full transition-all duration-300" style={{ width: `${((currentQ + 1) / questions.length) * 100}%` }}></div>
                 </div>
-                <h2 className="text-xl sm:text-2xl font-semibold mb-6 text-slate-100 leading-snug">{questions[currentQ].text}</h2>
+                <h2 className="text-xl sm:text-2xl font-medium mb-6 text-slate-100 leading-snug">{questions[currentQ].text}</h2>
                 <div className="space-y-3">
                   {questions[currentQ].options.map((opt, idx) => (
-                    <button key={idx} onClick={() => handleAnswer(opt)} className="w-full text-left p-4 rounded-2xl bg-slate-800/60 hover:bg-slate-800 border border-slate-700/50 hover:border-indigo-500/50 transition text-sm sm:text-base text-slate-300 hover:text-white flex items-center justify-between group">
+                    <button key={idx} onClick={() => handleAnswer(opt)} className="w-full text-left p-4 rounded-2xl bg-slate-800/50 hover:bg-slate-800 border border-slate-700/40 hover:border-indigo-500/50 transition text-sm sm:text-base text-slate-300 hover:text-white flex items-center justify-between group">
                       <span>{opt}</span>
                       <span className="w-5 h-5 rounded-full border border-slate-600 group-hover:border-indigo-400 group-hover:bg-indigo-500/20 flex items-center justify-center transition shrink-0 ml-3"></span>
                     </button>
@@ -98,8 +98,8 @@
                   <div className="absolute inset-0 border-4 border-indigo-500/20 rounded-full"></div>
                   <div className="absolute inset-0 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin"></div>
                 </div>
-                <h2 className="text-xl font-semibold mb-2">Обработка паттернов...</h2>
-                <p className="text-slate-400 text-sm">Синтезируем ответы, выстраиваем профиль защитных стратегий.</p>
+                <h2 className="text-xl font-medium mb-2">Настраиваем фокус внимания...</h2>
+                <p className="text-slate-400 text-sm leading-relaxed">Бережно собираем пазл твоих ответов, чтобы показать тебе реальную картину изнутри.</p>
               </div>
             )}
 
@@ -109,45 +109,45 @@
                 
                 <div className="flex items-center justify-between mb-6 pb-4 border-b border-slate-800">
                   <div>
-                    <h2 className="text-2xl font-bold bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent">Ваш психологический профиль</h2>
-                    <p className="text-xs text-slate-400 mt-0.5">Сгенерировано нейросетью на основе 7 параметров</p>
+                    <h2 className="text-2xl font-bold bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent">Твой психологический портрет</h2>
+                    <p className="text-xs text-slate-400 mt-0.5">Основано на глубоком паттерн-анализе твоих ответов</p>
                   </div>
                   <span className="px-3 py-1 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded-full text-xs font-semibold">Готово</span>
                 </div>
 
                 {/* Tabs */}
                 <div className="flex space-x-2 mb-6 bg-slate-950 p-1.5 rounded-2xl border border-slate-800">
-                  <button onClick={() => setActiveTab('profile')} className={`flex-1 py-2.5 rounded-xl text-xs sm:text-sm font-medium transition ${activeTab === 'profile' ? 'bg-indigo-600 text-white shadow-md' : 'text-slate-400 hover:text-white'}`}>Портрет и Защиты</button>
-                  <button onClick={() => setActiveTab('practices')} className={`flex-1 py-2.5 rounded-xl text-xs sm:text-sm font-medium transition ${activeTab === 'practices' ? 'bg-indigo-600 text-white shadow-md' : 'text-slate-400 hover:text-white'}`}>План практик (PRO)</button>
+                  <button onClick={() => setActiveTab('profile')} className={`flex-1 py-2.5 rounded-xl text-xs sm:text-sm font-medium transition ${activeTab === 'profile' ? 'bg-indigo-600 text-white shadow-md' : 'text-slate-400 hover:text-white'}`}>Глубинный разбор</button>
+                  <button onClick={() => setActiveTab('practices')} className={`flex-1 py-2.5 rounded-xl text-xs sm:text-sm font-medium transition ${activeTab === 'practices' ? 'bg-indigo-600 text-white shadow-md' : 'text-slate-400 hover:text-white'}`}>Персональный план (PRO)</button>
                 </div>
 
                 {activeTab === 'profile' ? (
                   <div className="space-y-4 mb-6">
                     <div className="bg-slate-950/60 border border-slate-800/80 p-4 sm:p-5 rounded-2xl">
-                      <div className="text-xs font-semibold text-indigo-400 uppercase tracking-wider mb-1">Ведущий защитный механизм</div>
-                      <div className="text-base sm:text-lg font-semibold text-white mb-2">Интеллектуализация и Гиперконтроль</div>
-                      <p className="text-slate-300 text-sm leading-relaxed">Вы склонны рационализировать эмоции и переводить стресс в ментальный анализ. Это помогает сохранять эффективность, но приводит к истощению скрытых резервов энергии.</p>
+                      <div className="text-xs font-semibold text-indigo-400 uppercase tracking-wider mb-1">Твой ведущий защитный механизм</div>
+                      <div className="text-base sm:text-lg font-semibold text-white mb-2">Интеллектуализация и колоссальная внутренняя опора</div>
+                      <p className="text-slate-300 text-sm leading-relaxed">Ты привык(ла) справляться со всем самостоятельно, переплавляя эмоции в логику и контроль. Твоя психика надежно защищает тебя от боли, но цена этого — хроническое фоновое напряжение. Ты невероятно сильный человек, но даже самым сильным маякам нужен перерыв от штормов.</p>
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       <div className="bg-slate-950/60 border border-slate-800/80 p-4 rounded-2xl">
-                        <div className="text-xs font-semibold text-amber-400 uppercase mb-1">Главный триггер</div>
-                        <p className="text-xs sm:text-sm text-slate-300">Потеря предсказуемости процессов и нарушение личных границ.</p>
+                        <div className="text-xs font-semibold text-amber-400 uppercase mb-1">Скрытый якорь-триггер</div>
+                        <p className="text-xs sm:text-sm text-slate-300">Моменты, когда теряется контроль над ситуацией или нарушаются твои глубокие границы.</p>
                       </div>
                       <div className="bg-slate-950/60 border border-slate-800/80 p-4 rounded-2xl">
-                        <div className="text-xs font-semibold text-cyan-400 uppercase mb-1">Зона роста</div>
-                        <p className="text-xs sm:text-sm text-slate-300">Разрешить себе проживать паузы без чувства вины за бездействие.</p>
+                        <div className="text-xs font-semibold text-cyan-400 uppercase mb-1">Ключ к свободе</div>
+                        <p className="text-xs sm:text-sm text-slate-300">Разрешить себе быть уязвимым(ой) и присвоить право на отдых без чувства вины.</p>
                       </div>
                     </div>
                   </div>
                 ) : (
                   <div className="space-y-3 mb-6">
                     <div className="bg-indigo-950/30 border border-indigo-800/40 p-4 rounded-2xl">
-                      <div className="text-xs text-indigo-300 font-semibold mb-1">Практика #1: Сброс ментального напряжения</div>
-                      <p className="text-xs text-slate-300">Техника «Заземление через 5 сенсорных точек» для быстрого выхода из тревожной петли.</p>
+                      <div className="text-xs text-indigo-300 font-semibold mb-1">Практика #1: Возвращение в тело (Антистресс)</div>
+                      <p className="text-xs text-slate-300">Бережная техника заземления через дыхание, которая помогает за 3 минуты снять груз с плеч.</p>
                     </div>
                     <div className="bg-slate-950/60 border border-slate-800/80 p-4 rounded-2xl opacity-60">
-                      <div className="text-xs text-slate-400 font-semibold mb-1">Практика #2 (PRO): Управление границами</div>
+                      <div className="text-xs text-slate-400 font-semibold mb-1">Практика #2 (PRO): Перенастройка личных границ</div>
                       <p className="text-xs text-slate-500">Доступно после активации подписки.</p>
                     </div>
                   </div>
@@ -156,13 +156,13 @@
                 {/* PAYWALL BLOCK */}
                 <div className="bg-gradient-to-r from-indigo-950/80 to-slate-900 border border-indigo-500/30 p-5 rounded-2xl mb-6">
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-xs font-bold text-indigo-400 uppercase tracking-wider">Безлимитный PRO-доступ</span>
+                    <span className="text-xs font-bold text-indigo-400 uppercase tracking-wider">Ты нужен(а) себе в ресурсном состоянии</span>
                     <span className="text-xs bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded-md font-medium">3 дня бесплатно</span>
                   </div>
-                  <p className="text-xs sm:text-sm text-slate-300 mb-3">Получите ежедневный ИИ-коучинг, персональные аудио-практики и глубокие психологические разборы.</p>
+                  <p className="text-xs sm:text-sm text-slate-300 mb-3">Получи полный доступ к ежедневным аудио-практикам, глубоким разборам и бережной поддержке ИИ-коуча, который понимает тебя с полуслова.</p>
                   <div className="text-lg font-bold text-white mb-4">$4.99 <span className="text-xs font-normal text-slate-400">/ неделя после триала</span></div>
-                  <button onClick={() => alert('Интеграция платежного шлюза (Stripe / Telegram Payments) в разработке.')} className="w-full py-3.5 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 rounded-xl font-semibold transition shadow-lg shadow-emerald-600/25 text-white text-sm sm:text-base">
-                    Активировать PRO и начать практику
+                  <button onClick={() => alert('Интеграция платежного шлюза в разработке.')} className="w-full py-3.5 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 rounded-xl font-semibold transition shadow-lg shadow-emerald-600/25 text-white text-sm sm:text-base">
+                    Начать путь к себе (3 дня бесплатно)
                   </button>
                 </div>
 

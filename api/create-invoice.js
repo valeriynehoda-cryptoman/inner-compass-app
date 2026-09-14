@@ -27,11 +27,11 @@ export default async function handler(req, res) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         title: 'Полный доступ к Inner Compass',
-        description: 'Глубинный психологический портрет, архетип и персональный план восстановления',
+        description: 'Глубинный психологический портрет, архетип и персональный план восстановления (250 Stars)',
         payload: 'inner_compass_pro_access',
-        provider_token: '', // Обязательно для Telegram Stars (XTR)
+        provider_token: '',
         currency: 'XTR',
-        prices: [{ label: 'Подписка PRO', amount: 250 }]
+        prices: [{ label: 'Доступ PRO', amount: 250 }]
       })
     });
 

@@ -49,13 +49,7 @@ export default function App() {
   const handleBuyClick = async () => {
     setLoadingPayment(true);
     try {
-      const userId = window.Telegram?.WebApp?.initDataUnsafe?.user?.id;
-      
-      if (!userId) {
-        alert('Не удалось определить ID пользователя. Откройте приложение из чата с ботом!');
-        setLoadingPayment(false);
-        return;
-      }
+      const userId = window.Telegram?.WebApp?.initDataUnsafe?.user?.id || 12345678;
 
       const res = await fetch('/api/create-invoice', {
         method: 'POST',
@@ -65,12 +59,18 @@ export default function App() {
 
       const data = await res.json();
 
-      if (data.success) {
-        if (window.Telegram && window.Telegram.WebApp) {
-          window.Telegram.WebApp.close();
+      if (data.success && data.invoiceLink) {
+        if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.openInvoice) {
+          window.Telegram.WebApp.openInvoice(data.invoiceLink, (status) => {
+            if (status === 'paid') {
+              alert('Оплата прошла успешно!');
+            }
+          });
+        } else {
+          window.open(data.invoiceLink, '_blank');
         }
       } else {
-        alert('Ошибка: ' + (data.error || 'не удалось отправить счет'));
+        alert('Ошибка: ' + (data.error || 'не удалось создать счет'));
       }
     } catch (err) {
       console.error('Payment error:', err);
@@ -166,7 +166,7 @@ export default function App() {
                   disabled={loadingPayment}
                   className="w-full py-3 px-4 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-semibold text-sm shadow-lg shadow-amber-500/20 transition-all duration-200 active:scale-[0.98] disabled:opacity-50"
                 >
-                  {loadingPayment ? 'Отправка счета...' : 'Разблокировать за 250 ⭐'}
+                  {loadingPayment ? 'Создание счета...' : 'Разблокировать за 250 ⭐'}
                 </button>
               </div>
 

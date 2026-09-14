@@ -60,12 +60,8 @@ export default function App() {
       const data = await res.json();
 
       if (data.success && data.invoiceLink) {
-        if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.openInvoice) {
-          window.Telegram.WebApp.openInvoice(data.invoiceLink, (status) => {
-            if (status === 'paid') {
-              alert('Оплата прошла успешно!');
-            }
-          });
+        if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.openLink) {
+          window.Telegram.WebApp.openLink(data.invoiceLink);
         } else {
           window.open(data.invoiceLink, '_blank');
         }

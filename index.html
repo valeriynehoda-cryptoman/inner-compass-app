@@ -33,112 +33,112 @@
         const [currentQ, setCurrentQ] = React.useState(0);
         const [activeTab, setActiveTab] = React.useState('profile');
         const [microLoading, setMicroLoading] = React.useState(false);
-        const [userArchetype, setUserArchetype] = React.useState(null);
+        const [userResult, setUserResult] = React.useState(null);
 
         const questions = [
           { 
             id: 1, 
-            tag: "Уровень I: Телесное отражение",
-            text: "Когда внешний мир запрашивает слишком много ресурса, где именно в теле острее всего фиксируется фоновое напряжение?", 
+            tag: "Тело и напряжение",
+            text: "Когда внешний мир требует слишком много сил, где именно в теле острее всего чувствуется усталость?", 
             options: [
-              "Грудная клетка словно сжата невидимым панцирем, дыхание становится поверхностным", 
-              "Тяжесть концентрируется в плечах и шее, создавая эффект постоянного груза", 
-              "Появляется ментальный туман, рассеивающий способность концентрироваться", 
-              "Ощущается общая глухая усталость, сигнализирующая о выходе за лимиты"
+              "Грудная клетка словно сжата, дыхание становится поверхностным", 
+              "Тяжесть концентрируется в плечах и шее, появляется сутулость", 
+              "В голове возникает туман, становится трудно сосредоточиться", 
+              "Ощущается общая глухая усталость во всем теле"
             ] 
           },
           { 
             id: 2, 
-            tag: "Уровень II: Защитные механизмы",
-            text: "Какая автоматическая стратегия включается в моменты, когда возникает угроза или внешнее давление?", 
+            tag: "Защитная реакция",
+            text: "Как организм реагирует на резкое давление или стрессовую ситуацию?", 
             options: [
-              "Включается холодная рациональность: полный контроль и временное отключение эмоций", 
-              "Происходит тихое отстранение, уход внутрь себя и выстраивание дистанции", 
-              "Активируется внутренний протест — резкость или желание защитить границы нападением", 
-              "Запускается бесконечный внутренний анализ в стиле «как нужно было поступить»"
+              "Включается холодный расчет: полное управление эмоциями и жесткий контроль", 
+              "Хочется уйти в себя, закрыться от всех и выдержать паузу в одиночестве", 
+              "Появляется внутренний протест, резкость или желание защитить свои границы", 
+              "Запускается бесконечный мысленный диалог в стиле «как надо было поступить»"
             ] 
           },
           { 
             id: 3, 
-            tag: "Уровень III: Истинные мотивы",
-            text: "О чем сигнализирует тишина в конце долгого дня, когда завершаются все внешние задачи?", 
+            tag: "Вечерняя тишина",
+            text: "О чем думается в тишине в конце долгого и тяжелого дня?", 
             options: [
-              "Ощущение, что день прошел в режиме выживания, а не проживания",
-              "Вопрос о том, сколько еще получится удерживать этот темп без срыва",
-              "Ощущение глубокого одиночества, где истинные нагрузки остаются невидимыми для других",
-              "Страх остановиться, так как подсознательно кажется, что рухнет вся система"
+              "«День прошел в режиме выживания, а когда же жить для себя?»",
+              "«Сколько еще получится держаться в таком темпе без срыва?»",
+              "«Никто вокруг даже не догадывается, как сильно я устал(а) внутри»",
+              "«Страшно остановиться, потому что тогда рухнет всё, что держится на мне»"
             ] 
           },
           { 
             id: 4, 
-            tag: "Уровень IV: Стратегия выживания",
-            text: "Какой скрытый внутренний ресурс помогает удерживать баланс в периоды неопределенности?", 
+            tag: "Поиск опоры",
+            text: "Что помогает держаться на плаву, когда почва уходит из-под ног?", 
             options: [
-              "Ментальное просчитывание шагов наперед и стремление предусмотреть риски", 
-              "Полное погружение в деятельность или помощь другим как способ заглушить усталость", 
-              "Режим энергосбережения: замереть и ждать, пока внешняя буря утихнет", 
-              "Поиск внешней поддержки вовне при временном отказе от собственных интересов"
+              "Четкое планирование каждого шага наперед и просчет всех рисков", 
+              "С головой уходить в работу или заботу о других, чтобы не чувствовать усталость", 
+              "Режим тишины: замереть и переждать, пока буря утихнет сама", 
+              "Поиск поддержки у близких людей при отказе от собственных интересов"
             ] 
           },
           { 
             id: 5, 
-            tag: "Уровень V: Ядро сопротивления",
-            text: "Чего подсознательно опасается та внутренняя часть, которая не позволяет расслабиться даже во время отдыха?", 
+            tag: "Внутренний барьер",
+            text: "Чего больше всего боится та часть тебя, которая не расслабляется даже на отдыхе?", 
             options: [
-              "Утратить контроль и столкнуться с неконтролируемым хаосом", 
-              "Столкнуться с несоответствием ожиданиям окружающих людей", 
-              "Остаться без поддержки в момент уязвимости", 
-              "Обнаружить в конце пути, что силы были направлены не на те приоритеты"
+              "Потерять контроль и столкнуться с полным хаосом вокруг", 
+              "Оказаться недостаточно хорошим(ой) для окружающих людей", 
+              "Остаться совсем одному/одной в трудный момент", 
+              "Понять в конце пути, что силы ушли не на то, что действительно важно"
             ] 
           },
           { 
             id: 6, 
-            tag: "Уровень VI: Точка бифуркации",
-            text: "Каким образом принимаются ключевые решения в условиях отсутствия четких ориентиров?", 
+            tag: "Принятие решений",
+            text: "Как принимаются самые сложные решения, когда нет четких ориентиров?", 
             options: [
-              "Через жесткий прагматичный расчет с исключением эмоционального фактора", 
-              "Через ориентацию на глубинный внутренний отклик, несмотря на внешние сомнения", 
-              "Через долгие колебания, сбор мнений и неизбежную потерю энергии", 
-              "Через следование течению и доверие внешним обстоятельствам"
+              "Через холодную логику и отказ от эмоциональных переживаний", 
+              "Через внутреннее чутье, несмотря на сомнения окружающих", 
+              "Через долгие сомнения, сбор чужих мнений и потерю энергии", 
+              "Через плыть по течению и доверие внешним обстоятельствам"
             ] 
           },
           { 
             id: 7, 
-            tag: "Уровень VII: Ключ к исцелению",
-            text: "Если бы телесный ресурс получил возможность высказать главную потребность напрямую, как бы она звучала?", 
+            tag: "Голос тела",
+            text: "Если бы тело могло прямо сейчас сказать, чего оно хочет больше всего, что бы это было?", 
             options: [
-              "«Дать возможность выдохнуть и побыть в тишине без необходимости куда-то бежать»",
-              "«Научиться отстаивать личные интересы с такой же легкостью, как чужие»",
-              "«Прекратить доказывать свою ценность через достижения — она есть по факту»",
-              "«Присвоить себе право на несовершенство, паузу и право ошибаться»"
+              "«Дай мне выдохнуть, побыть в тишине и никуда не бежать»",
+              "«Научись защищать свои личные границы без чувства вины»",
+              "«Перестань доказывать всем свою ценность — ты уже молодец»",
+              "«Разреши себе ошибаться, отдыхать и быть просто живым человеком»"
             ] 
           }
         ];
 
-        const archetypes = [
+        const resultsData = [
           {
-            title: "Интеллектуальный контроль и гипер-ответственность",
-            desc: "Формируется устойчивая привычка удерживать нагрузку самостоятельно, конвертируя эмоциональные переживания в жесткий ментальный контроль. Психика выстраивает защитный контур, однако следствием этого становится фоновое истощение на клеточном уровне. Даже самым прочным системам необходим системный сброс напряжения.",
-            trigger: "Моменты потери предсказуемости ситуации и нарушение личных психологических границ.",
-            transformation: "Интеграция права на уязвимость и безопасный отдых без сопутствующего чувства вины."
+            title: "Режим максимального контроля",
+            desc: "У вас выработалась привычка справляться со всем самостоятельно, превращая любые переживания в жесткий контроль. Это отличная опора, но она забирает много сил. Организму требуется время на расслабление и мягкий сброс накопленного напряжения.",
+            trigger: "Моменты, когда теряется предсказуемость или кто-то нарушает ваши личные границы.",
+            transformation: "Разрешить себе иногда отпускать штурвал и отдыхать без чувства вины."
           },
           {
-            title: "Глубинная автономия и дистанцирование",
-            desc: "При возникновении давления активируется стратегия изоляции и ухода в свой внутренний контур. С внешней стороны сохраняется полная стабильность, но колоссальный объем энергии уходит на удержание внутренней дистанции. Возникает потребность в безопасном пространстве без внешних требований.",
-            trigger: "Ситуации вторжения в личное пространство и требование быстрых открытых реакций.",
-            transformation: "Обретение навыка экологичного проявления эмоций без необходимости закрываться."
+            title: "Стремление к уединению и дистанции",
+            desc: "В моменты давления появляется естественное желание закрыться от мира и восстановиться в тишине. Внешне все выглядит стабильно, но внутри тратится много энергии на защиту своего пространства.",
+            trigger: "Ситуации, когда вокруг слишком много суеты, шума и настойчивых требований.",
+            transformation: "Научиться вовремя говорить «нет» и отдыхать до того, как наступит истощение."
           },
           {
-            title: "Энергосбережение через адаптацию и замирание",
-            desc: "Основной реакцией на стресс становится режим ожидания и накопления внутреннего напряжения. Психика выбирает тактику выжидания бури, откладывая собственные приоритеты на потом. Это приводит к накоплению усталости и ощущению движения по замкнутому кругу.",
-            trigger: "Длительная неопределенность и отсутствие четких внешних ориентиров.",
-            transformation: "Смещение фокуса внимания на собственные потребности и возвращение телесной опоры."
+            title: "Накопление сил и режим ожидания",
+            desc: "Вы умеете терпеть и выжидать подходящий момент, откладывая свои желания на потом. Это помогает пережить шторм, но приводит к фоновой усталости и ощущению движения по кругу.",
+            trigger: "Долгая неопределенность и отсутствие понятных перспектив.",
+            transformation: "Сместить фокус внимания на свои текущие потребности, а не только на внешние задачи."
           },
           {
-            title: "Перфекционизм и бег по кругу достижений",
-            desc: "Движение вперед поддерживается за счет внутреннего критика и высоких стандартов. Каждое достижение воспринимается как должное, а отдых блокируется чувством вины. Система работает на пределе возможностей, требуя пересмотра базовых жизненных приоритетов.",
-            trigger: "Ощущение несоответствия ожиданиям или страх совершить ошибку.",
-            transformation: "Принятие собственной ценности вне зависимости от продуктивности и внешних успехов."
+            title: "Высокая планка и стремление к идеалу",
+            desc: "Вы привыкли двигаться вперед на силе воли, предъявляя к себе высокие требования. Отдых часто откладывается, а любые достижения воспринимаются как должное. Системе нужен бережный баланс.",
+            trigger: "Страх сделать что-то недостаточно хорошо или не оправдать ожидания.",
+            transformation: "Понять, что ваша ценность не зависит от идеальности и бесконечной продуктивности."
           }
         ];
 
@@ -152,18 +152,17 @@
             if (currentQ < questions.length - 1) {
               setCurrentQ(currentQ + 1);
             } else {
-              // Calculate dominant archetype based on answers frequency
               const counts = [0, 0, 0, 0];
               Object.values(newAnswers).forEach(val => {
                 if (val >= 0 && val < 4) counts[val]++;
               });
               const maxIndex = counts.indexOf(Math.max(...counts));
-              setUserArchetype(archetypes[maxIndex]);
+              setUserResult(resultsData[maxIndex]);
 
               setStep('analyzing');
               setTimeout(() => {
                 setStep('result');
-              }, 4200);
+              }, 4000);
             }
           }, 350);
         };
@@ -177,17 +176,17 @@
             {step === 'welcome' && (
               <div className="max-w-lg w-full bg-slate-900/90 backdrop-blur-2xl border border-emerald-500/20 p-8 sm:p-10 rounded-3xl text-center shadow-2xl animate-fade-in relative overflow-hidden">
                 <div className="inline-flex items-center justify-center px-4 py-1.5 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-semibold uppercase tracking-widest mb-6 border border-emerald-500/30 shadow-inner">
-                  🌿 Пространство глубокой честности
+                  🌿 Пространство для отдыха и честности с собой
                 </div>
                 <h1 className="text-3xl sm:text-4xl font-bold mb-4 tracking-tight bg-gradient-to-r from-white via-slate-100 to-emerald-300 bg-clip-text text-transparent">Inner Compass</h1>
                 <p className="text-slate-300 mb-8 text-sm sm:text-base leading-relaxed">
-                  Этот инструмент создан для бережного анализа внутренних паттернов. Интерактивная диагностика помогает заметить скрытые защитные механизмы, снизить фоновое напряжение и вернуть ресурсное состояние.
+                  Этот тест поможет заметить, где вы тратите больше всего энергии, почему накапливается усталость и как вернуть себе ресурсное состояние без лишнего стресса.
                 </p>
                 <div className="p-4 bg-emerald-950/40 border border-emerald-500/20 rounded-2xl mb-8 text-xs text-emerald-300/90 leading-relaxed">
-                  ⚠️ <strong>Рекомендация:</strong> Доверяйте первичному телесному отклику при выборе вариантов. Это позволяет точнее зафиксировать актуальное состояние.
+                  💡 <strong>Совет:</strong> Отвечайте так, как чувствуете прямо сейчас, не задумываясь над тем, «как правильно».
                 </div>
                 <button onClick={() => setStep('quiz')} className="w-full py-4 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 rounded-2xl font-semibold transition-all duration-300 shadow-xl shadow-emerald-900/40 text-white tracking-wide border border-emerald-400/30 text-base active:scale-[0.99]">
-                  Начать диагностику (2 минуты)
+                  Пройти тест (2 минуты)
                 </button>
               </div>
             )}
@@ -200,7 +199,7 @@
                     {questions[currentQ].tag}
                   </span>
                   <span className="text-xs font-medium text-emerald-400/80">
-                    Шаг {currentQ + 1} из {questions.length}
+                    Вопрос {currentQ + 1} из {questions.length}
                   </span>
                 </div>
                 <div className="w-full bg-slate-800/80 h-1.5 rounded-full mb-8 overflow-hidden">
@@ -231,59 +230,59 @@
                   <div className="absolute inset-0 border-4 border-emerald-500/20 rounded-full"></div>
                   <div className="absolute inset-0 border-4 border-emerald-400 border-t-transparent rounded-full animate-spin"></div>
                 </div>
-                <h2 className="text-xl font-medium mb-3 text-emerald-300">Синхронизируем паттерны...</h2>
-                <p className="text-slate-400 text-sm leading-relaxed">Сопоставляем маркеры телесного напряжения и формируем персональный профиль психологического ресурса.</p>
+                <h2 className="text-xl font-medium mb-3 text-emerald-300">Обрабатываем ответы...</h2>
+                <p className="text-slate-400 text-sm leading-relaxed">Сопоставляем ваши ответы, чтобы составить точный портрет вашего текущего состояния.</p>
               </div>
             )}
 
             {/* RESULT SCREEN */}
-            {step === 'result' && userArchetype && (
+            {step === 'result' && userResult && (
               <div className="max-w-xl w-full bg-slate-900/95 backdrop-blur-2xl border border-emerald-500/30 p-6 sm:p-9 rounded-3xl shadow-2xl animate-fade-in">
                 
                 <div className="flex items-center justify-between mb-6 pb-4 border-b border-slate-800">
                   <div>
-                    <h2 className="text-2xl font-bold bg-gradient-to-r from-emerald-400 to-teal-300 bg-clip-text text-transparent">Психологический срез готов</h2>
-                    <p className="text-xs text-slate-400 mt-0.5">Анализ структурных паттернов завершен</p>
+                    <h2 className="text-2xl font-bold bg-gradient-to-r from-emerald-400 to-teal-300 bg-clip-text text-transparent">Результат диагностики</h2>
+                    <p className="text-xs text-slate-400 mt-0.5">Собрано на основе ваших ответов</p>
                   </div>
-                  <span className="px-3.5 py-1 bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 rounded-full text-xs font-semibold animate-pulse">ID сессии: #940-2</span>
+                  <span className="px-3.5 py-1 bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 rounded-full text-xs font-semibold">Готово</span>
                 </div>
 
                 {/* Tabs */}
                 <div className="flex space-x-2 mb-6 bg-slate-950 p-1.5 rounded-2xl border border-slate-800">
-                  <button onClick={() => setActiveTab('profile')} className={`flex-1 py-2.5 rounded-xl text-xs sm:text-sm font-medium transition ${activeTab === 'profile' ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-900/40' : 'text-slate-400 hover:text-white'}`}>Структурный портрет</button>
+                  <button onClick={() => setActiveTab('profile')} className={`flex-1 py-2.5 rounded-xl text-xs sm:text-sm font-medium transition ${activeTab === 'profile' ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-900/40' : 'text-slate-400 hover:text-white'}`}>Ваш портрет</button>
                   <button onClick={() => setActiveTab('practices')} className={`flex-1 py-2.5 rounded-xl text-xs sm:text-sm font-medium transition ${activeTab === 'practices' ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-900/40' : 'text-slate-400 hover:text-white'}`}>План восстановления (PRO)</button>
                 </div>
 
                 {activeTab === 'profile' ? (
                   <div className="space-y-4 mb-6">
                     <div className="bg-slate-950/70 border border-emerald-500/30 p-5 rounded-2xl shadow-inner">
-                      <div className="text-xs font-semibold text-emerald-400 uppercase tracking-wider mb-1">🌿 Ведущая стратегия выживания</div>
-                      <div className="text-base sm:text-lg font-semibold text-white mb-2">{userArchetype.title}</div>
+                      <div className="text-xs font-semibold text-emerald-400 uppercase tracking-wider mb-1">🌿 Ваша основная особенность</div>
+                      <div className="text-base sm:text-lg font-semibold text-white mb-2">{userResult.title}</div>
                       <p className="text-slate-300 text-sm leading-relaxed">
-                        {userArchetype.desc}
+                        {userResult.desc}
                       </p>
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       <div className="bg-slate-950/60 border border-slate-800/60 p-4 rounded-2xl">
-                        <div className="text-xs font-semibold text-emerald-300 uppercase mb-1">Ключевой триггер</div>
-                        <p className="text-xs sm:text-sm text-slate-300">{userArchetype.trigger}</p>
+                        <div className="text-xs font-semibold text-emerald-300 uppercase mb-1">Главный триггер</div>
+                        <p className="text-xs sm:text-sm text-slate-300">{userResult.trigger}</p>
                       </div>
                       <div className="bg-slate-950/60 border border-slate-800/60 p-4 rounded-2xl">
-                        <div className="text-xs font-semibold text-teal-300 uppercase mb-1">Вектор трансформации</div>
-                        <p className="text-xs sm:text-sm text-slate-300">{userArchetype.transformation}</p>
+                        <div className="text-xs font-semibold text-teal-300 uppercase mb-1">Куда направить фокус</div>
+                        <p className="text-xs sm:text-sm text-slate-300">{userResult.transformation}</p>
                       </div>
                     </div>
                   </div>
                 ) : (
                   <div className="space-y-3 mb-6">
                     <div className="bg-emerald-950/40 border border-emerald-800/50 p-4 rounded-2xl">
-                      <div className="text-xs text-emerald-300 font-semibold mb-1">Практика #1: Сброс телесного панциря (Аудио 4 мин)</div>
-                      <p className="text-xs text-slate-300">Техника заземления для снятия хронического мышечного спазма в области плеч и грудной клетки.</p>
+                      <div className="text-xs text-emerald-300 font-semibold mb-1">Практика #1: Сброс напряжения (Аудио 4 мин)</div>
+                      <p className="text-xs text-slate-300">Простая техника расслабления для снятия мышечного зажима в плечах и груди.</p>
                     </div>
                     <div className="bg-slate-950/60 border border-slate-800/60 p-4 rounded-2xl opacity-60">
-                      <div className="text-xs text-slate-400 font-semibold mb-1">Практика #2 (PRO): Экологичное выстраивание границ</div>
-                      <p className="text-xs text-slate-500">Доступно после активации персонального доступа.</p>
+                      <div className="text-xs text-slate-400 font-semibold mb-1">Практика #2 (PRO): Как устанавливать границы без вины</div>
+                      <p className="text-xs text-slate-500">Доступно после активации полного доступа.</p>
                     </div>
                   </div>
                 )}
@@ -291,11 +290,11 @@
                 {/* PAYWALL BLOCK */}
                 <div className="bg-gradient-to-r from-emerald-950/90 via-slate-900 to-slate-950 border border-emerald-500/40 p-5 sm:p-6 rounded-2xl mb-6 shadow-xl shadow-emerald-950/60">
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-xs font-bold text-emerald-400 uppercase tracking-widest">Баланс ресурса и продуктивности</span>
+                    <span className="text-xs font-bold text-emerald-400 uppercase tracking-widest">Верните себе ресурсное состояние</span>
                     <span className="text-xs bg-emerald-500/20 text-emerald-300 px-2.5 py-1 rounded-md font-medium border border-emerald-500/30">3 дня бесплатно</span>
                   </div>
                   <p className="text-xs sm:text-sm text-slate-300 mb-4 leading-relaxed">
-                    Диагностика фиксирует текущие маркеры. Полная закрытая экосистема включает набор ежедневных нейро-практик, аудиотреков и методик для стабилизации ресурсного состояния.
+                    Тест показал вашу текущую точку. Получите полный доступ к ежедневным аудио-практикам и методикам восстановления сил, чтобы перестать работать на износ.
                   </p>
                   <div className="flex items-baseline justify-between mb-4">
                     <div>
@@ -305,12 +304,12 @@
                     <span className="text-xs text-emerald-400 font-medium">Отмена в 1 клик</span>
                   </div>
                   <button onClick={() => alert('Интеграция платежной системы в разработке.')} className="w-full py-4 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 rounded-xl font-semibold transition shadow-lg shadow-emerald-600/30 text-white text-sm sm:text-base border border-emerald-400/30 tracking-wide active:scale-[0.99]">
-                    Получить полный доступ (Активировать триал)
+                    Получить полный доступ (3 дня бесплатно)
                   </button>
                 </div>
 
                 <div className="text-center">
-                  <button onClick={() => { setStep('welcome'); setCurrentQ(0); setAnswers({}); setUserArchetype(null); }} className="text-xs text-slate-500 hover:text-emerald-400 transition underline">Пройти диагностику заново</button>
+                  <button onClick={() => { setStep('welcome'); setCurrentQ(0); setAnswers({}); setUserResult(null); }} className="text-xs text-slate-500 hover:text-emerald-400 transition underline">Пройти тест заново</button>
                 </div>
 
               </div>
